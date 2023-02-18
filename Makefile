@@ -19,12 +19,16 @@ BDIR = build
 
 all: $(BDIR)/$(TARGET)
 
-$(BDIR)/$(TARGET): $(DIR)/$(TARGET).cpp
+$(BDIR)/$(TARGET): $(DIR)/$(TARGET).cpp | $(BDIR)
 	$(CC) $(CFLAGS) $(DIR)/$(TARGET).cpp -o $(TARGET)
 	mv $(TARGET) $(BDIR)
 
+$(BDIR):
+	mkdir -p $@
+
 run: $(BDIR)/$(TARGET)
-	./$(BDIR)/$(TARGET)
+	@echo "[RUNNING]: \n\n"
+	@./$(BDIR)/$(TARGET)
 
 clean: 
 	rm $(BDIR)/*
